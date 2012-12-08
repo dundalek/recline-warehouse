@@ -1,5 +1,5 @@
 (function(u,e,ifr,ts,i){
-  u = "https://raw.github.com/dundalek/recline-warehouse/demos/bookmarklet/"
+  u = "http://knomaton.org/recline-warehouse/demos/bookmarklet/"
   //u="http://localhost/projects/mylibs/recline-warehouse/demos/bookmarklet/";
 
   // e = document.createElement("style");
