@@ -1,0 +1,19 @@
+.recline-export-view .export-buttons>* {
+	display: inline-block;
+	vertical-align: top;
+	margin-right: 20px;
+}
+
+.recline-export-view .export-buttons>label {
+	margin-top: 5px;
+}
+
+.recline-export-view .export-buttons {
+	margin-bottom: 20px;
+}
+
+.recline-export-view .preview textarea {
+	width: 700px;
+	height: 200px;
+	font-family: monospace;
+}

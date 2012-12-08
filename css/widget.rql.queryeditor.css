@@ -1,0 +1,13 @@
+.recline-rql-query-editor th {
+	font-weight: bold;
+	text-align: left;
+	padding-right: 10px;
+}
+
+.recline-rql-query-editor input {
+	vertical-align: top;
+}
+
+.recline-rql-query-editor .rql-input {
+	width: 500px;	
+}

@@ -1,0 +1,26 @@
+.recline-rql-sort-editor {
+	padding: 8px;
+}
+
+.recline-rql-sort-editor .js-update {
+	margin-right: 17px;
+	float: right;
+}
+
+.recline-rql-sort-editor .js-add {
+	display: inline-block;
+	margin-top: 5px;
+	margin-left: 3px;
+}
+
+.recline-rql-sort-editor select.field {
+	width: 120px;
+}
+
+.recline-rql-sort-editor select.order {
+	width: 60px;
+}
+
+.recline-rql-sort-editor a.js-remove {
+	font-size: 18px;	
+}

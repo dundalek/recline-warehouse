@@ -1,0 +1,31 @@
+.recline-rql-filter-editor {
+	padding: 8px;
+}
+
+.recline-rql-filter-editor input,
+.recline-rql-filter-editor select {
+	width: 175px;
+}
+
+.recline-rql-filter-editor select.field {
+	width: 120px;
+}
+
+.recline-rql-filter-editor select.operator {
+	width: 60px;
+}
+
+.recline-rql-filter-editor a.js-remove {
+	font-size: 18px;
+}
+
+.recline-rql-filter-editor .js-update {
+	margin-right: 17px;
+	float: right;
+}
+
+.recline-rql-filter-editor .js-add {
+	display: inline-block;
+	margin-top: 5px;
+	margin-left: 3px;
+}

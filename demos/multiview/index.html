@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Demos - Multiview - Recline Data Explorer and Library</title>
+
+  <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link rel="stylesheet" href="../../recline/vendor/bootstrap/2.0.2/css/bootstrap.css" />
+
+  
+      <link rel="stylesheet" href="../../recline/vendor/leaflet/0.4.4/leaflet.css">
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="../../recline/vendor/leaflet/0.4.4/leaflet.ie.css" />
+  <![endif]-->
+  <link rel="stylesheet" href="../../recline/vendor/leaflet.markercluster/MarkerCluster.css">
+  <link rel="stylesheet" href="../../recline/vendor/leaflet.markercluster/MarkerCluster.Default.css">
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="../../recline/vendor/leaflet.markercluster/MarkerCluster.Default.ie.css" />
+  <![endif]-->
+  <link rel="stylesheet" href="../../recline/vendor/slickgrid/2.0.1/slick.grid.css">
+  <link rel="stylesheet" href="../../recline/vendor/timeline/20120520/css/timeline.css">
+
+  <!-- Recline CSS components -->
+  <link rel="stylesheet" href="../../recline/css/grid.css">
+  <link rel="stylesheet" href="../../recline/css/slickgrid.css">
+  <link rel="stylesheet" href="../../recline/css/graph.css">
+  <link rel="stylesheet" href="../../recline/css/transform.css">
+  <link rel="stylesheet" href="../../recline/css/map.css">
+  <link rel="stylesheet" href="../../recline/css/multiview.css">
+  <!-- /Recline CSS components -->
+
+  <link rel="stylesheet" href="../../css/view.export.css">
+  <link rel="stylesheet" href="../../css/widget.rql.filtereditor.css">
+  <link rel="stylesheet" href="../../css/widget.rql.queryeditor.css">
+  <link rel="stylesheet" href="../../css/widget.rql.sorteditor.css">
+
+  <!-- 3rd party JS libraries -->
+  <script type="text/javascript" src="../../recline/vendor/jquery/1.7.1/jquery.js"></script>
+  
+  <!-- put flotr before underscore, because other it overwrites _.template function -->
+  <script type="text/javascript" src="../../recline/vendor/flotr2/flotr2.js"></script>
+  
+  <script type="text/javascript" src="../../recline/vendor/underscore/1.4.2/underscore.js"></script>
+  <script type="text/javascript" src="../../recline/vendor/backbone/0.9.2/backbone.js"></script>
+  <script type="text/javascript" src="../../recline/vendor/mustache/0.5.0-dev/mustache.js"></script>
+  <script type="text/javascript" src="../../recline/vendor/bootstrap/2.0.2/bootstrap.js"></script>
+  
+  <script type="text/javascript" src="../../recline/vendor/leaflet/0.4.4/leaflet.js"></script>
+  <script type="text/javascript" src="../../recline/vendor/leaflet.markercluster/leaflet.markercluster.js"></script>
+  <script type="text/javascript" src="../../recline/vendor/slickgrid/2.0.1/jquery-ui-1.8.16.custom.min.js"></script>
+  <script type="text/javascript" src="../../recline/vendor/slickgrid/2.0.1/jquery.event.drag-2.0.min.js"></script>
+  <script type="text/javascript" src="../../recline/vendor/slickgrid/2.0.1/slick.grid.min.js"></script>
+  <script type="text/javascript" src="../../recline/vendor/moment/1.6.2/moment.js"></script>
+  <script type="text/javascript" src="../../recline/vendor/timeline/20120520/js/timeline.js"></script>
+
+  <!--
+    ## Just use the all in one library version rather than individual files
+
+  <script type="text/javascript" src="../../recline/dist/recline.js"></script>
+
+  -->
+
+  <!-- model and backends -->
+  <script type="text/javascript" src="../../recline/src/ecma-fixes.js"></script>
+  <script type="text/javascript" src="../../recline/src/model.js"></script>
+  <script type="text/javascript" src="../../recline/src/backend.memory.js"></script>
+  <script type="text/javascript" src="../../recline/src/backend.dataproxy.js"></script>
+  <script type="text/javascript" src="../../recline/src/backend.gdocs.js"></script>
+  <script type="text/javascript" src="../../recline/src/backend.elasticsearch.js"></script>
+  <script type="text/javascript" src="../../recline/src/backend.csv.js"></script>
+  <script type="text/javascript" src="../../recline/src/backend.ckan.js"></script>
+  <script type="text/javascript" src="../../recline/src/backend.solr.js"></script>
+
+  <!-- views -->
+  <script type="text/javascript" src="../../recline/src/view.grid.js"></script>
+  <script type="text/javascript" src="../../recline/src/view.slickgrid.js"></script>
+  <script type="text/javascript" src="../../recline/src/view.transform.js"></script>
+  <script type="text/javascript" src="../../recline/src/data.transform.js"></script>
+  <script type="text/javascript" src="../../recline/src/view.graph.js"></script>
+  <script type="text/javascript" src="../../recline/src/view.map.js"></script>
+  <script type="text/javascript" src="../../recline/src/view.timeline.js"></script>
+  <script type="text/javascript" src="../../recline/src/widget.pager.js"></script>
+  <script type="text/javascript" src="../../recline/src/widget.queryeditor.js"></script>
+  <script type="text/javascript" src="../../recline/src/widget.filtereditor.js"></script>
+  <script type="text/javascript" src="../../recline/src/widget.facetviewer.js"></script>
+  <script type="text/javascript" src="../../recline/src/widget.fields.js"></script>
+  <script type="text/javascript" src="../../recline/src/view.multiview.js"></script>
+
+
+    <script type="text/javascript" src="../../warehouse/node_modules/q/q.js"></script>
+  <script type="text/javascript" src="../../warehouse/node_modules/underscore-data/underscore-data.js"></script>
+  <script type="text/javascript" src="../../warehouse/backend/base.js"></script>
+  <script type="text/javascript" src="../../warehouse/backend/memory.js"></script>
+  <script type="text/javascript" src="../../warehouse/rql/sql.js"></script>
+  <script type="text/javascript" src="../../warehouse/rql/elasticsearch.js"></script>
+
+
+  <script type="text/javascript" src="../../js/backend.warehouse.js"></script>
+  <script type="text/javascript" src="../../js/data.export.js"></script>
+  <script type="text/javascript" src="../../js/view.export.js"></script>
+  <script type="text/javascript" src="../../js/widget.rql.filtereditor.js"></script>
+  <script type="text/javascript" src="../../js/widget.rql.sorteditor.js"></script>
+  <script type="text/javascript" src="../../js/widget.rql.queryeditor.js"></script>
+
+  <script type="text/javascript" src="../../js/backend.tableparser.js"></script>
+
+
+
+  <!-- link rel="stylesheet" href="vendor/bootstrap/2.0.2/css/bootstrap-responsive.css" -->
+
+  <link href="../../recline/css-site/pygments.css" rel="stylesheet" type="text/css" />
+  <link href="../../recline/css-site/style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="logo-icon pull-left" href="/">
+        <img src="http://assets.okfn.org/p/recline/img/chair.png" />
+      </a>
+      <a class="brand" href="http://reclinejs.com"><strong>Recline.js</strong> &ndash; relax with your data</a>
+<!--       <ul class="nav">
+        <li>
+          <a href="../../recline/docs/">
+            <i class="icon-book icon-white"></i>
+            Documentation
+          </a>
+        </li>
+        <li class="divider-vertical"></li>
+        <li>
+          <a href="../../recline/docs/tutorials.html">
+            <i class="icon-road icon-white"></i>
+            Tutorials
+          </a>
+        </li>
+        <li class="divider-vertical"></li>
+        <li>
+          <a href="../../recline/demos/">
+            <i class="icon-pencil icon-white"></i>
+            Demos
+          </a>
+        </li>
+        <li class="divider-vertical"></li>
+        <li>
+          <a href="../../recline/download.html">
+            <i class="icon-download-alt icon-white"></i>
+            Download
+          </a>
+        </li>
+      </ul> -->
+      <ul class="nav pull-right">
+        <li>
+          <a href="http://github.com/dundalek/recline-warehouse/">
+            <i class="icon-download-alt icon-white"></i>
+            GitHub
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <style type="text/css">
+.recline-slickgrid {
+  height: 550px;
+}
+
+.recline-timeline .vmm-timeline {
+  height: 550px;
+}
+</style>
+
+<div class="data-explorer-here"></div>
+
+<div style="clear: both;"></div>
+
+<script type="text/javascript" src="app.js"></script>
+
+
+</div>
+
+
+
+<section class="footer">
+    <div class="container">
+    <div class="row">
+      <div class="span4">
+        <p class="getit-btn"><a href="../../recline/docs/" class="btn">Use the Library &raquo;</a></p>
+        <p>Recline.js is freely redistributable under the terms of the MIT license.</p>
+      </div>
+      <div class="span3">
+        <p><a href="http://www.shuttleworthfoundation.org/"><img src="http://farm8.staticflickr.com/7019/6467412887_18f72f5066_n.jpg" style="width: 140px;" alt="Supported by funding from the Shuttleworth Foundation" /></a></p>
+        <ul>
+          <li><a href="http://datahub.io/">The DataHub</a></li>
+          <li><a href="http://OpenSpending.org/">OpenSpending.org</a></li>
+          <li><a href="http://datacouch.com/">DataCouch.com</a></li>
+        </ul>
+      </div>
+      <div class="span3">
+        <ul>
+          <li><a href="http://okfnlabs.org/">Open Knowledge Foundation Labs</a></li>
+          <li><a href="http://opendefinition.org/">Open Definition</a></li>
+          <li><a href="http://okfn.org/">Open Knowledge Foundation</a></li>
+        </ul>
+      </div>
+      <div class="span2">
+        <h5>Contacts</h5>
+        <ul style="list-style-type: none; margin-left: 0;">
+          <li><a href="http://twitter.com/ReclineJS">@ReclineJS</a></li>
+          <li><a href="http://twitter.com/maxogden">@maxogden</a></li>
+          <li><a href="http://twitter.com/rufuspollock">@rufuspollock</a></li>
+        </ul>
+        <a class="nav-logo" href="http://okfn.org/" title="An Open Knowledge Foundation Project">
+          <img src="http://assets.okfn.org/p/okfn/img/logo_28x30.png" alt="Open Knowledge Foundation logo" />
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

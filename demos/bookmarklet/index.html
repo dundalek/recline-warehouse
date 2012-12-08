@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Demos - Multiview - Recline Data Explorer and Library</title>
+
+  <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <link rel="stylesheet" href="../../recline/vendor/bootstrap/2.0.2/css/bootstrap.css" />
+
+  
+      <link rel="stylesheet" href="../../recline/vendor/leaflet/0.4.4/leaflet.css">
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="../../recline/vendor/leaflet/0.4.4/leaflet.ie.css" />
+  <![endif]-->
+  <link rel="stylesheet" href="../../recline/vendor/leaflet.markercluster/MarkerCluster.css">
+  <link rel="stylesheet" href="../../recline/vendor/leaflet.markercluster/MarkerCluster.Default.css">
+  <!--[if lte IE 8]>
+  <link rel="stylesheet" href="../../recline/vendor/leaflet.markercluster/MarkerCluster.Default.ie.css" />
+  <![endif]-->
+  <link rel="stylesheet" href="../../recline/vendor/slickgrid/2.0.1/slick.grid.css">
+  <link rel="stylesheet" href="../../recline/vendor/timeline/20120520/css/timeline.css">
+
+  <!-- Recline CSS components -->
+  <link rel="stylesheet" href="../../recline/css/grid.css">
+  <link rel="stylesheet" href="../../recline/css/slickgrid.css">
+  <link rel="stylesheet" href="../../recline/css/graph.css">
+  <link rel="stylesheet" href="../../recline/css/transform.css">
+  <link rel="stylesheet" href="../../recline/css/map.css">
+  <link rel="stylesheet" href="../../recline/css/multiview.css">
+  <!-- /Recline CSS components -->
+
+  <link rel="stylesheet" href="../../css/view.export.css">
+  <link rel="stylesheet" href="../../css/widget.rql.filtereditor.css">
+  <link rel="stylesheet" href="../../css/widget.rql.queryeditor.css">
+  <link rel="stylesheet" href="../../css/widget.rql.sorteditor.css">
+
+  <link rel="stylesheet" href="css/style.css">
+
+<style>
+  .sample-table {
+    margin: 30px auto;
+  }
+
+  .sample-table td,
+  .sample-table th {
+    padding: 8px;
+    line-height: 18px;
+    text-align: left;
+    vertical-align: top;
+    border-top: 1px solid #DDD;
+  }
+</style>
+
+  <!-- 3rd party JS libraries -->
+  <script type="text/javascript" src="../../recline/vendor/jquery/1.7.1/jquery.js"></script>
+  
+  <!-- put flotr before underscore, because other it overwrites _.template function -->
+  <script type="text/javascript" src="../../recline/vendor/flotr2/flotr2.js"></script>
+  
+  <script type="text/javascript" src="../../recline/vendor/underscore/1.4.2/underscore.js"></script>
+  <script type="text/javascript" src="../../recline/vendor/backbone/0.9.2/backbone.js"></script>
+  <script type="text/javascript" src="../../recline/vendor/mustache/0.5.0-dev/mustache.js"></script>
+  <script type="text/javascript" src="../../recline/vendor/bootstrap/2.0.2/bootstrap.js"></script>
+  
+  <script type="text/javascript" src="../../recline/vendor/leaflet/0.4.4/leaflet.js"></script>
+  <script type="text/javascript" src="../../recline/vendor/leaflet.markercluster/leaflet.markercluster.js"></script>
+  <script type="text/javascript" src="../../recline/vendor/slickgrid/2.0.1/jquery-ui-1.8.16.custom.min.js"></script>
+  <script type="text/javascript" src="../../recline/vendor/slickgrid/2.0.1/jquery.event.drag-2.0.min.js"></script>
+  <script type="text/javascript" src="../../recline/vendor/slickgrid/2.0.1/slick.grid.min.js"></script>
+  <script type="text/javascript" src="../../recline/vendor/moment/1.6.2/moment.js"></script>
+  <script type="text/javascript" src="../../recline/vendor/timeline/20120520/js/timeline.js"></script>
+
+  <!--
+    ## Just use the all in one library version rather than individual files
+
+  <script type="text/javascript" src="../../recline/dist/recline.js"></script>
+
+  -->
+
+  <!-- model and backends -->
+  <script type="text/javascript" src="../../recline/src/ecma-fixes.js"></script>
+  <script type="text/javascript" src="../../recline/src/model.js"></script>
+  <script type="text/javascript" src="../../recline/src/backend.memory.js"></script>
+  <script type="text/javascript" src="../../recline/src/backend.dataproxy.js"></script>
+  <script type="text/javascript" src="../../recline/src/backend.gdocs.js"></script>
+  <script type="text/javascript" src="../../recline/src/backend.elasticsearch.js"></script>
+  <script type="text/javascript" src="../../recline/src/backend.csv.js"></script>
+  <script type="text/javascript" src="../../recline/src/backend.ckan.js"></script>
+  <script type="text/javascript" src="../../recline/src/backend.solr.js"></script>
+
+  <!-- views -->
+  <script type="text/javascript" src="../../recline/src/view.grid.js"></script>
+  <script type="text/javascript" src="../../recline/src/view.slickgrid.js"></script>
+  <script type="text/javascript" src="../../recline/src/view.transform.js"></script>
+  <script type="text/javascript" src="../../recline/src/data.transform.js"></script>
+  <script type="text/javascript" src="../../recline/src/view.graph.js"></script>
+  <script type="text/javascript" src="../../recline/src/view.map.js"></script>
+  <script type="text/javascript" src="../../recline/src/view.timeline.js"></script>
+  <script type="text/javascript" src="../../recline/src/widget.pager.js"></script>
+  <script type="text/javascript" src="../../recline/src/widget.queryeditor.js"></script>
+  <script type="text/javascript" src="../../recline/src/widget.filtereditor.js"></script>
+  <script type="text/javascript" src="../../recline/src/widget.facetviewer.js"></script>
+  <script type="text/javascript" src="../../recline/src/widget.fields.js"></script>
+  <script type="text/javascript" src="../../recline/src/view.multiview.js"></script>
+
+
+    <script type="text/javascript" src="../../warehouse/node_modules/q/q.js"></script>
+  <script type="text/javascript" src="../../warehouse/node_modules/underscore-data/underscore-data.js"></script>
+  <script type="text/javascript" src="../../warehouse/backend/base.js"></script>
+  <script type="text/javascript" src="../../warehouse/backend/memory.js"></script>
+  <script type="text/javascript" src="../../warehouse/rql/sql.js"></script>
+  <script type="text/javascript" src="../../warehouse/rql/elasticsearch.js"></script>
+
+
+  <script type="text/javascript" src="../../js/backend.warehouse.js"></script>
+  <script type="text/javascript" src="../../js/data.export.js"></script>
+  <script type="text/javascript" src="../../js/view.export.js"></script>
+  <script type="text/javascript" src="../../js/widget.rql.filtereditor.js"></script>
+  <script type="text/javascript" src="../../js/widget.rql.sorteditor.js"></script>
+  <script type="text/javascript" src="../../js/widget.rql.queryeditor.js"></script>
+
+  <script type="text/javascript" src="../../js/backend.tableparser.js"></script>
+
+  <script type="text/javascript" src="js/app.js"></script>
+
+  <script type="text/javascript">
+    jQuery(function($) {
+        $('.js-test').click(function(e) {
+          e.preventDefault();
+          initReclineTableParserWidget();
+        });
+    });
+  </script>
+
+  <!-- link rel="stylesheet" href="vendor/bootstrap/2.0.2/css/bootstrap-responsive.css" -->
+
+  <link href="../../recline/css-site/pygments.css" rel="stylesheet" type="text/css" />
+  <link href="../../recline/css-site/style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="logo-icon pull-left" href="/">
+        <img src="http://assets.okfn.org/p/recline/img/chair.png" />
+      </a>
+      <a class="brand" href="http://reclinejs.com"><strong>Recline.js</strong> &ndash; relax with your data</a>
+<!--       <ul class="nav">
+        <li>
+          <a href="../../recline/docs/">
+            <i class="icon-book icon-white"></i>
+            Documentation
+          </a>
+        </li>
+        <li class="divider-vertical"></li>
+        <li>
+          <a href="../../recline/docs/tutorials.html">
+            <i class="icon-road icon-white"></i>
+            Tutorials
+          </a>
+        </li>
+        <li class="divider-vertical"></li>
+        <li>
+          <a href="../../recline/demos/">
+            <i class="icon-pencil icon-white"></i>
+            Demos
+          </a>
+        </li>
+        <li class="divider-vertical"></li>
+        <li>
+          <a href="../../recline/download.html">
+            <i class="icon-download-alt icon-white"></i>
+            Download
+          </a>
+        </li>
+      </ul> -->
+      <ul class="nav pull-right">
+        <li>
+          <a href="http://github.com/dundalek/recline-warehouse/">
+            <i class="icon-download-alt icon-white"></i>
+            GitHub
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+<div class="page-header">
+  <h1>DataExplorer bookmarklet</h1>
+</div>
+
+<p>Lets suppose you found a web page, which has useful data presented in a static table.<br>Using this script you can transform the table to a rich widget, which enables sorting, filtering, graphing, visualizing on the map, etc.</p>
+
+<p>Try it by clicking
+    <a href="#" class="btn js-test">Test</a><p>
+<p>
+    You can use it as a bookmarklet on any web page. <br>Drag the following into the bookmark bar for later usage: <a href='javascript:(function(e,t,n,r,i){e="https://raw.github.com/dundalek/recline-warehouse/demos/bookmarklet/",t=document.createElement("link"),t.rel="stylesheet",t.href=e+"css/parent.css",t.id="recline-warehouse-data-explorer-css",document.body.appendChild(t),t=document.createElement("iframe"),t.id="recline-warehouse-data-explorer",document.body.appendChild(t),n=(t.contentWindow||t.documentWindow).document,n.open(),n.write("<!doctype html><html><head><link rel=\"stylesheet\" href=\""+e+"css/all.css\"></head><body><div class=\"alert-messages recline-data-explorer\"><div class=\"alert alert-info alert-loader\"> Loading <span class=\"notification-loader\">&nbsp;</span> </div></div>"),r=document.getElementsByTagName("table");for(i=0;i<r.length;i++)n.write("<table class=\"tbparser\" style=\"display:none\">"+r[i].innerHTML+"</table>");n.write("<script type=\"text/javascript\" src=\""+e+"js/all.min.js\"></script></body></html>"),n.close()})();' title="Drag this into your Bookmarks toolbar" class="btn btn-primary">DataExplorer bookmarklet</a>
+<p>
+
+<p>
+  Here is a list of sample websites with tables you can try the bookmarklet on:<br><br>
+  
+<a href="http://en.wikipedia.org/wiki/All-time_Olympic_Games_medal_table">http://en.wikipedia.org/wiki/All-time_Olympic_Games_medal_table</a><br>
+<a href="http://en.wikipedia.org/wiki/List_of_radio_stations_in_New_York">http://en.wikipedia.org/wiki/List_of_radio_stations_in_New_York</a><br>
+<a href="http://en.wikipedia.org/wiki/Nobel_Prize_laureate">http://en.wikipedia.org/wiki/Nobel_Prize_laureate</a><br>
+<a href="http://en.wikipedia.org/wiki/List_of_TCP_and_UDP_port_numbers">http://en.wikipedia.org/wiki/List_of_TCP_and_UDP_port_numbers</a><br>
+<a href="http://en.wikipedia.org/wiki/List_of_tz_database_time_zones">http://en.wikipedia.org/wiki/List_of_tz_database_time_zones</a><br>
+<a href="http://www.london2012.com/medals/medal-count/">http://www.london2012.com/medals/medal-count/</a><br>
+<a href="http://noosphere.princeton.edu/results.html">http://noosphere.princeton.edu/results.html</a><br>
+<a href="http://www.w3.org/TR/CSS/#properties">http://www.w3.org/TR/CSS/#properties</a><br>
+
+
+<p>
+
+
+  <table class="tbparser sample-table table-bordered table-striped">
+    <tr>
+      <th>id</th>
+      <th>name</th>
+      <th>age</th>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>James</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Jane</td>
+      <td>32</td>
+    </tr>
+    <tr>
+      <td>12</td>
+      <td>Steve</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Sam</td>
+      <td>21</td>
+    </tr>
+  </table>
+
+
+<table  class="tbparser sample-table table-bordered table-striped">
+
+<tr><td>id</td><td>date</td><td>x</td><td>y</td><td>z</td><td>country</td><td>title</td><td>lat</td><td>lon</td></tr>
+<tr><td>0</td><td>2011-01-01</td><td>1</td><td>2</td><td>3</td><td>DE</td><td>first</td><td>52.56</td><td>13.4</td></tr>
+<tr><td>1</td><td>2011-02-02</td><td>2</td><td>4</td><td>24</td><td>UK</td><td>second</td><td>54.97</td><td>-1.6</td></tr>
+<tr><td>2</td><td>2011-03-03</td><td>3</td><td>6</td><td>9</td><td>US</td><td>third</td><td>40</td><td>-75.5</td></tr>
+<tr><td>3</td><td>2011-04-04</td><td>4</td><td>8</td><td>6</td><td>UK</td><td>fourth</td><td>57.27</td><td>-6.2</td></tr>
+<tr><td>4</td><td>2011-05-04</td><td>5</td><td>10</td><td>15</td><td>UK</td><td>fifth</td><td>51.58</td><td>0</td></tr>
+<tr><td>5</td><td>2011-06-02</td><td>6</td><td>12</td><td>18</td><td>DE</td><td>sixth</td><td>51.04</td><td>7.9</td></tr>
+
+</table>
+
+<table class="tbparser sample-table table-bordered table-striped">
+<caption>Top ten of the 2012 Summer Olympics medal table</caption>
+
+<tr>
+<th>Rank</th>
+<th>Country</th>
+<th>Gold</th>
+<th>Silver</th>
+<th>Bronze</th>
+<th>Total</th>
+</tr>
+
+<tr>
+<td>1</td>
+<th>United States (USA)</th>
+<td>46</td>
+<td>29</td>
+<td>29</td>
+<td>104</td>
+</tr>
+<tr>
+<td>2</td>
+<th>China (CHN)</th>
+<td>38</td>
+<td>27</td>
+<td>23</td>
+<td>88</td>
+</tr>
+<tr>
+<td>3</td>
+<th>Great Britain (GBR)</th>
+<td>29</td>
+<td>17</td>
+<td>19</td>
+<td>65</td>
+</tr>
+<tr>
+<td>4</td>
+<th>Russia (RUS)</th>
+<td>24</td>
+<td>26</td>
+<td>32</td>
+<td>82</td>
+</tr>
+<tr>
+<td>5</td>
+<th>South Sorea (KOR)</th>
+<td>13</td>
+<td>8</td>
+<td>7</td>
+<td>28</td>
+</tr>
+<tr>
+<td>6</td>
+<th>Germany(GER)</th>
+<td>11</td>
+<td>19</td>
+<td>14</td>
+<td>44</td>
+</tr>
+<tr>
+<td>7</td>
+<th>France (FRA)</th>
+<td>11</td>
+<td>11</td>
+<td>12</td>
+<td>34</td>
+</tr>
+<tr>
+<td>8</td>
+<th>Italy (ITA)</th>
+<td>8</td>
+<td>9</td>
+<td>11</td>
+<td>28</td>
+</tr>
+<tr>
+<td>9</td>
+<th>Hungary (HUN)</th>
+<td>8</td>
+<td>4</td>
+<td>5</td>
+<td>17</td>
+</tr>
+<tr>
+<td>10</td>
+<th>Australia (AUS)</th>
+<td>7</td>
+<td>16</td>
+<td>12</td>
+<td>35</td>
+</tr>
+
+  <table class="tbparser sample-table table-bordered table-striped">
+    <caption>horizontal with no headers</caption>
+    <tr>
+      <td>1</td>
+      <td>2</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>James</td>
+      <td>Jane</td>
+      <td>Sam</td>
+    </tr>
+    <tr>
+      <td>25</td>
+      <td>32</td>
+      <td>21</td>
+    </tr>
+  </table>
+
+</table>
+
+</div>
+
+<section class="footer">
+    <div class="container">
+    <div class="row">
+      <div class="span4">
+        <p class="getit-btn"><a href="../../recline/docs/" class="btn">Use the Library &raquo;</a></p>
+        <p>Recline.js is freely redistributable under the terms of the MIT license.</p>
+      </div>
+      <div class="span3">
+        <p><a href="http://www.shuttleworthfoundation.org/"><img src="http://farm8.staticflickr.com/7019/6467412887_18f72f5066_n.jpg" style="width: 140px;" alt="Supported by funding from the Shuttleworth Foundation" /></a></p>
+        <ul>
+          <li><a href="http://datahub.io/">The DataHub</a></li>
+          <li><a href="http://OpenSpending.org/">OpenSpending.org</a></li>
+          <li><a href="http://datacouch.com/">DataCouch.com</a></li>
+        </ul>
+      </div>
+      <div class="span3">
+        <ul>
+          <li><a href="http://okfnlabs.org/">Open Knowledge Foundation Labs</a></li>
+          <li><a href="http://opendefinition.org/">Open Definition</a></li>
+          <li><a href="http://okfn.org/">Open Knowledge Foundation</a></li>
+        </ul>
+      </div>
+      <div class="span2">
+        <h5>Contacts</h5>
+        <ul style="list-style-type: none; margin-left: 0;">
+          <li><a href="http://twitter.com/ReclineJS">@ReclineJS</a></li>
+          <li><a href="http://twitter.com/maxogden">@maxogden</a></li>
+          <li><a href="http://twitter.com/rufuspollock">@rufuspollock</a></li>
+        </ul>
+        <a class="nav-logo" href="http://okfn.org/" title="An Open Knowledge Foundation Project">
+          <img src="http://assets.okfn.org/p/okfn/img/logo_28x30.png" alt="Open Knowledge Foundation logo" />
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

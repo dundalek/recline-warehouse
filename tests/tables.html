@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<title></title>
+	<link rel="stylesheet" href="qunit/qunit.css">
+	<script src="qunit/qunit.js"></script>
+	
+	<script type="text/javascript" src="../vendor/jquery-1.8.0.min.js"></script>
+	<script type="text/javascript" src="../vendor/underscore/1.3.3/underscore-min.js"></script>
+
+	<script type="text/javascript" src="../backend.tableparser.js"></script>
+
+</head>
+<body>
+
+	<div id="qunit"></div>
+	<div id="qunit-fixture">test markup</div>
+
+	<div style="display: none">
+
+	<table id="table1">
+		<tr>
+			<th>id</th>
+			<th>name</th>
+			<th>age</th>
+		</tr>
+		<tr>
+			<td>1</td>
+			<td>James</td>
+			<td>25</td>
+		</tr>
+		<tr>
+			<td>2</td>
+			<td>Jane</td>
+			<td>32</td>
+		</tr>
+		<tr>
+			<td>3</td>
+			<td>Sam</td>
+			<td>21</td>
+		</tr>
+	</table>
+
+	<table id="table2">
+		<tr>
+			<td>id</td>
+			<td>name</td>
+			<td>age</td>
+		</tr>
+		<tr>
+			<td>1</td>
+			<td>James</td>
+			<td>25</td>
+		</tr>
+		<tr>
+			<td>2</td>
+			<td>Jane</td>
+			<td>32</td>
+		</tr>
+		<tr>
+			<td>3</td>
+			<td>Sam</td>
+			<td>21</td>
+		</tr>
+	</table>
+
+	<table id="table3">
+		<tr>
+			<td>1</td>
+			<td>James</td>
+			<td>25</td>
+		</tr>
+		<tr>
+			<td>2</td>
+			<td>Jane</td>
+			<td>32</td>
+		</tr>
+		<tr>
+			<td>3</td>
+			<td>Sam</td>
+			<td>21</td>
+		</tr>
+	</table>
+
+	<table id="table4">
+		<tr>
+			<th>id</th>
+			<td>1</td>
+			<td>2</td>
+			<td>3</td>
+		</tr>
+		<tr>
+			<th>name</th>
+			<td>James</td>
+			<td>Jane</td>
+			<td>Sam</td>
+		</tr>
+		<tr>
+			<th>age</th>
+			<td>25</td>
+			<td>32</td>
+			<td>21</td>
+		</tr>
+	</table>
+
+	<table id="table5">
+		<tr>
+			<td>id</td>
+			<td>1</td>
+			<td>2</td>
+			<td>3</td>
+		</tr>
+		<tr>
+			<td>name</td>
+			<td>James</td>
+			<td>Jane</td>
+			<td>Sam</td>
+		</tr>
+		<tr>
+			<td>age</td>
+			<td>25</td>
+			<td>32</td>
+			<td>21</td>
+		</tr>
+	</table>
+
+	<table id="table6">
+		<tr>
+			<td>1</td>
+			<td>2</td>
+			<td>3</td>
+		</tr>
+		<tr>
+			<td>James</td>
+			<td>Jane</td>
+			<td>Sam</td>
+		</tr>
+		<tr>
+			<td>25</td>
+			<td>32</td>
+			<td>21</td>
+		</tr>
+	</table>
+
+	</div>
+	
+<script>
+
+var parseTable = recline.Backend.TableParser.parseTable;
+
+var fields = [{"id":0,"label":"id"},{"id":1,"label":"name"},{"id":2,"label":"age"}],
+	records = [["1","James","25"],["2","Jane","32"],["3","Sam","21"]];
+
+test('vertical th', function() {
+	deepEqual(parseTable($('#table1')), {fields: fields, records: records});
+});
+
+test('vertical no th', function() {
+	deepEqual(parseTable($('#table2'), {header: true}), {fields: fields, records: records});
+});
+
+test('vertical no headers', function() {
+	deepEqual(parseTable($('#table3')), {records: records});
+});
+
+test('horizontal th', function() {
+	deepEqual(parseTable($('#table4')), {fields: fields, records: records});
+});
+
+test('horizontal no th', function() {
+	deepEqual(parseTable($('#table5'), {header: true}), {fields: fields, records: records});
+});
+
+test('horizontal no headers', function() {
+	deepEqual(parseTable($('#table6'), {vertical:false}), {records: records});
+});
+
+</script>
+
+</body>
+</html>
