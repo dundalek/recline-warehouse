@@ -1,0 +1,6 @@
+[submodule "recline"]
+	path = recline
+	url = git://github.com/okfn/recline.git
+[submodule "warehouse"]
+	path = warehouse
+	url = git://github.com/dundalek/warehouse.git
